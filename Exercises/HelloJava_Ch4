@@ -1,8 +1,0 @@
-/* Introduction to Java Programming and Data Structures (Comprehensive Version) 
-11th Edition 2018*/
-
-// Chapter 4 Exercises
-package Exercises;
-
-import java.util.Scanner;
-
