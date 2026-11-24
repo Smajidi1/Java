@@ -112,7 +112,6 @@ public class HelloJava_Ch5 {
         // Exercise 5.6: Display ping and square-meter conversion tables
         if (selected == 0 || selected == 6) {
             System.out.println("\nExercise 5.6: Display ping and square-meter conversion tables");
-            // Use this exercise's specified factor: 1 ping = 3.305 square meters.
             System.out.printf("%-8s %12s | %-12s %10s%n", "Ping", "Square meter", "Square meter", "Ping");
             for (int row = 0; row <= 14; row++) {
                 int ping = 10 + row * 5;
@@ -227,7 +226,6 @@ public class HelloJava_Ch5 {
             System.out.println("\nExercise 5.11: Display numbers divisible by 3 or 4, but not both");
             int count = 0;
             for (int number = 100; number <= 200; number++) {
-                // Boolean ^ is exclusive OR: exactly one divisibility test must be true.
                 if ((number % 3 == 0) ^ (number % 4 == 0)) {
                     if (count % 10 != 0) {
                         System.out.print(" ");
@@ -346,7 +344,7 @@ public class HelloJava_Ch5 {
             if (lines < 1 || lines > 15) {
                 System.out.println("Invalid input: enter an integer from 1 to 15.");
             } else {
-                // Follow the supplied sample: widest row first, with rows left-aligned.
+                // Follow the supplied sample - widest row first, with rows left-aligned.
                 for (int row = lines; row >= 1; row--) {
                     for (int value = row; value >= 1; value--) {
                         if (value != row) {
@@ -365,7 +363,6 @@ public class HelloJava_Ch5 {
         // Exercise 5.18: Display four star patterns using nested loops
         if (selected == 0 || selected == 18) {
             System.out.println("\nExercise 5.18: Display four star patterns using nested loops");
-            // Keep all four patterns in this file, following the chapter-file format.
             System.out.println("Pattern A");
             for (int row = 1; row <= 6; row++) {
                 for (int star = 1; star <= row; star++) {
@@ -505,8 +502,6 @@ public class HelloJava_Ch5 {
                     System.out.printf("%-10s %12s %12s %12s %14s%n",
                             "Payment#", "Payment", "Interest", "Principal", "Balance");
                     for (long month = 1; month <= months && balanceCents > 0; month++) {
-                        // Cent-based balances plus decimal interest rounding keep the ledger
-                        // consistent.
                         long interestCents = BigDecimal.valueOf(balanceCents).multiply(annualRate)
                                 .divide(BigDecimal.valueOf(1200), 0, RoundingMode.HALF_UP).longValueExact();
                         long paymentCents = normalPaymentCents;
@@ -540,8 +535,6 @@ public class HelloJava_Ch5 {
             for (int i = n; i >= 1; i--) {
                 rightToLeft += 1.0 / i;
             }
-            // Adding smaller terms first often preserves more of their contribution.
-            // It is a rule of thumb, not a guarantee that every reversed sum is closer.
             System.out.printf(Locale.US, "Left to right: %.15f%n", leftToRight);
             System.out.printf(Locale.US, "Right to left: %.15f%n", rightToLeft);
             System.out.printf(Locale.US, "Absolute difference: %.3e%n", Math.abs(leftToRight - rightToLeft));
@@ -575,7 +568,7 @@ public class HelloJava_Ch5 {
         // Exercise 5.26: Approximate e using reciprocal factorials
         if (selected == 0 || selected == 26) {
             System.out.println("\nExercise 5.26: Approximate e using reciprocal factorials");
-            double e = 1; // Includes 1/0!.
+            double e = 1; // Includes 1/0.
             double term = 1;
             System.out.printf("%-12s %20s%n", "i", "Approximation of e");
             for (int i = 1; i <= 100000; i++) {
@@ -621,7 +614,8 @@ public class HelloJava_Ch5 {
             if (year < 1 || firstDay < 0 || firstDay > 6) {
                 System.out.println("Invalid year or weekday.");
             } else {
-                // Use the supplied weekday as the starting assumption; do not calculate it.
+                // Use the supplied weekday as the starting assumption and no need to calculate
+                // it.
                 boolean leapYear = year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
                 for (int month = 1; month <= 12; month++) {
                     String monthName;
@@ -717,7 +711,7 @@ public class HelloJava_Ch5 {
             if (year < 1 || firstDay < 0 || firstDay > 6) {
                 System.out.println("Invalid year or weekday.");
             } else {
-                // Use the supplied weekday as the starting assumption; do not calculate it.
+                // Use the supplied weekday as the starting assumption
                 boolean leapYear = year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
                 for (int month = 1; month <= 12; month++) {
                     String monthName;
@@ -809,7 +803,6 @@ public class HelloJava_Ch5 {
                 double monthlyRate = annualRate / 1200;
                 double balance = 0;
                 for (int month = 1; month <= months; month++) {
-                    // Deposit at the beginning of each month, as in the supplied formula.
                     balance = (balance + deposit) * (1 + monthlyRate);
                 }
                 System.out.printf(Locale.US, "Savings after %d months: $%.2f%n", months, balance);
@@ -828,8 +821,6 @@ public class HelloJava_Ch5 {
             if (balance < 0 || annualRate < 0 || months < 0) {
                 System.out.println("Invalid input: amount, rate, and months must be nonnegative.");
             } else {
-                // Follow the book's annual-percentage / 1200 monthly calculation.
-                // Although the text says APY, this is not the effective-APY conversion formula.
                 double monthlyRate = annualRate / 1200;
                 System.out.printf("%-10s %14s%n", "Month", "CD Value");
                 for (int month = 1; month <= months; month++) {
@@ -856,7 +847,6 @@ public class HelloJava_Ch5 {
                 int guessFirst = guess / 10;
                 int guessSecond = guess % 10;
                 System.out.println("The lottery number is " + lottery);
-                // Award amounts come from Listing 3.8, which this exercise revises.
                 if (guess == lottery) {
                     System.out.println("Exact match: you win $10,000.");
                 } else if (guessFirst == secondDigit && guessSecond == firstDigit) {
@@ -876,7 +866,6 @@ public class HelloJava_Ch5 {
             int count = 0;
             for (int number = 2; number < 10000; number++) {
                 int divisorSum = 1;
-                // Divisors occur in pairs, so only search through the square root.
                 for (int divisor = 2; divisor * divisor <= number; divisor++) {
                     if (number % divisor == 0) {
                         divisorSum += divisor;
@@ -981,8 +970,6 @@ public class HelloJava_Ch5 {
                 binary = (remaining % 2) + binary;
                 remaining /= 2;
             } while (remaining > 0);
-            // Negative inputs use mathematical signed notation, not fixed-width two's
-            // complement.
             if (number < 0) {
                 binary = "-" + binary;
             }
@@ -1014,16 +1001,12 @@ public class HelloJava_Ch5 {
             long targetCommission = (targetPayDollars - salaryDollars) * 10000;
             long salesCents = 0;
             long commissionScaled;
-            // Search in whole-dollar steps first, using the required do-while loop.
-            // Integer scaling avoids repeated additions of the inexact double 0.01.
             do {
                 salesCents += 100;
                 commissionScaled = salesCents <= 500000 ? salesCents * 6
                         : salesCents <= 1000000 ? 3000000 + (salesCents - 500000) * 8
                                 : 7000000 + (salesCents - 1000000) * 10;
             } while (commissionScaled < targetCommission);
-
-            // Back up one dollar, then refine to the minimum cent of sales.
             salesCents = Math.max(0, salesCents - 100);
             commissionScaled = salesCents <= 500000 ? salesCents * 6
                     : salesCents <= 1000000 ? 3000000 + (salesCents - 500000) * 8
@@ -1117,7 +1100,6 @@ public class HelloJava_Ch5 {
                             : salesCents <= 1000000 ? 3000000 + (salesCents - 500000) * 8
                                     : 7000000 + (salesCents - 1000000) * 10;
                 }
-                // Compare the unrounded commission to the goal; round only for display.
                 System.out.printf(Locale.US, "Minimum sales, to the cent: $%.2f%n", salesCents / 100.0);
                 System.out.printf(Locale.US, "Calculated commission: $%.4f%n", commissionScaled / 10000.0);
             }
@@ -1128,7 +1110,6 @@ public class HelloJava_Ch5 {
             System.out.println("\nExercise 5.43: Display every combination of two distinct integers from 1 to 7");
             int count = 0;
             for (int first = 1; first <= 7; first++) {
-                // Starting at first + 1 excludes duplicates and reversed copies.
                 for (int second = first + 1; second <= 7; second++) {
                     System.out.println(first + " " + second);
                     count++;
@@ -1147,12 +1128,11 @@ public class HelloJava_Ch5 {
             } else {
                 System.out.print("The 8 bits are ");
                 for (int bit = 7; bit >= 0; bit--) {
-                    // >> moves a bit into the last position; & 1 extracts that bit.
                     System.out.print((number >> bit) & 1);
                 }
                 System.out.println();
                 // Negative bytes use two's-complement representation.
-                // For +5, print all 8 bits: 00000101 (the sample omits a zero).
+                // For +5, print all 8 bits: 00000101 .
             }
         }
 
@@ -1168,8 +1148,6 @@ public class HelloJava_Ch5 {
                 if (i == 1) {
                     reference = value;
                 }
-                // Translate by the first value to reduce cancellation for large offsets.
-                // Applying the book's variance formula to translated data preserves variance.
                 double shifted = value - reference;
                 sum += shifted;
                 sumSquares += shifted * shifted;
@@ -1177,7 +1155,6 @@ public class HelloJava_Ch5 {
             input.nextLine();
             double mean = reference + sum / 10;
             double variance = (sumSquares - sum * sum / 10) / 9;
-            // Clamp a possible tiny negative value introduced by roundoff.
             double deviation = Math.sqrt(Math.max(0, variance));
             System.out.println("The mean is " + mean);
             System.out.printf(Locale.US, "The sample standard deviation is %.5f%n", deviation);
@@ -1189,9 +1166,6 @@ public class HelloJava_Ch5 {
             System.out.print("Enter a string (spaces are allowed): ");
             String text = input.nextLine();
             System.out.print("The reversed string is ");
-            // Step backward by Unicode code point instead of splitting surrogate pairs.
-            // This preserves individual supplementary characters, not entire combining
-            // sequences.
             int index = text.length();
             while (index > 0) {
                 int codePoint = text.codePointBefore(index);
@@ -1230,8 +1204,6 @@ public class HelloJava_Ch5 {
             System.out.println("\nExercise 5.48: Display characters at even positions");
             System.out.print("Enter a string (spaces are included in the positions): ");
             String text = input.nextLine();
-            // Positions are one-based: print the 2nd, 4th, 6th, ... characters.
-            // Count Unicode code points so a supplementary character occupies one position.
             System.out.print("Characters at even positions: \"");
             int position = 1;
             int index = 0;
@@ -1244,8 +1216,6 @@ public class HelloJava_Ch5 {
                 position++;
             }
             System.out.println("\"");
-            // For "Beijing Chicago" the result is "ejn hcg"; position 8 is a space.
-            // The printed sample appears to omit that selected space.
         }
 
         // Exercise 5.49: Count English vowels and consonants
@@ -1257,7 +1227,7 @@ public class HelloJava_Ch5 {
             int consonants = 0;
             for (int i = 0; i < text.length(); i++) {
                 char letter = Character.toUpperCase(text.charAt(i));
-                // Count English letters only; ignore digits, punctuation, and spaces.
+                // Count English letters only ignore numbers, punctuation, and spaces.
                 if (letter >= 'A' && letter <= 'Z') {
                     if (letter == 'A' || letter == 'E' || letter == 'I' || letter == 'O' || letter == 'U') {
                         vowels++;
@@ -1273,8 +1243,6 @@ public class HelloJava_Ch5 {
         // Exercise 5.50: Display multiplication tables with three kinds of loops
         if (selected == 0 || selected == 50) {
             System.out.println("\nExercise 5.50: Display multiplication tables with three kinds of loops");
-            // No string input is needed: the sample's "Enter a string" is unrelated.
-            // Correct the sample's products, including 1*2 = 2 and 2*2 = 4.
             System.out.println("Using for loops:");
             for (int row = 1; row <= 9; row++) {
                 for (int column = 1; column <= 9; column++) {

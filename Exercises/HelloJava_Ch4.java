@@ -9,18 +9,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Locale;
 
-/*
- * Notes:
- * - 4.3 uses the exact GPS coordinates in Section 4.1 and the requested
- *   two-triangle approximation with great-circle side lengths.
- * - 4.7 corrects the sample's fourth x-coordinate: -59.08, not -58.08.
- * - Short loops handle repeated checks in 4.6, 4.19, 4.21, and 4.26.
- * - 4.9 and 4.20 include Unicode code-point handling as a small extension.
- * - 4.23 uses BigDecimal (an optional extension) for exact decimal money and
- *   rounds each monetary amount to cents with HALF_UP. Its purpose here is
- *   the textbook calculation from supplied rates, not a complete payroll system.
- */
-
 public class HelloJava_Ch4 {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -45,7 +33,6 @@ public class HelloJava_Ch4 {
         // Exercise 4.2: Compute great-circle distance
         {
             System.out.println("\nExercise 4.2");
-            // Use the page's convention: north/west positive, south/east negative.
             // Reversing BOTH longitude signs gives the same distance.
             System.out.print("Enter point 1 latitude in degrees (example: 39.55): ");
             double latitude1 = Double.parseDouble(input.nextLine().trim());
@@ -103,9 +90,6 @@ public class HelloJava_Ch4 {
             double caCosine = Math.sin(charlotteLat) * Math.sin(atlantaLat)
                     + Math.cos(charlotteLat) * Math.cos(atlantaLat) * Math.cos(charlotteLon - atlantaLon);
             double caDistance = earthRadius * Math.acos(Math.max(-1.0, Math.min(1.0, caCosine)));
-
-            // Heron's formula gives a flat-triangle approximation using these distances.
-            // This is the textbook's estimate, not an exact spherical polygon area.
             double s1 = (aoDistance + osDistance + asDistance) / 2;
             double s2 = (asDistance + scDistance + caDistance) / 2;
             double area1 = Math.sqrt(Math.max(0, s1 * (s1 - aoDistance)
@@ -190,7 +174,6 @@ public class HelloJava_Ch4 {
                 System.out.println("Invalid radius: enter a positive number.");
             } else {
                 // Figure 4.4c order: p1 at 18 degrees, then 90, 162, 234, 306.
-                // The top point p2 is the book's 0 o'clock position.
                 System.out.println("The five pentagon vertices, in p1-to-p5 order, are:");
                 System.out.printf(Locale.US, "p1: (%.2f, %.2f)%n",
                         radius * Math.cos(Math.toRadians(18)), radius * Math.sin(Math.toRadians(18)));
@@ -201,7 +184,6 @@ public class HelloJava_Ch4 {
                         radius * Math.cos(Math.toRadians(234)), radius * Math.sin(Math.toRadians(234)));
                 System.out.printf(Locale.US, "p5: (%.2f, %.2f)%n",
                         radius * Math.cos(Math.toRadians(306)), radius * Math.sin(Math.toRadians(306)));
-                // The sample's p4 x-coordinate -58.08 is a typo; it should be -59.08.
             }
         }
 
@@ -236,12 +218,11 @@ public class HelloJava_Ch4 {
         // Exercise 4.10: Guess a birthday using Y and N
         {
             System.out.println("\nExercise 4.10");
-            // Think of a day of the month from 1 to 31; do not type the day itself.
+            // Think of a day of the month from 1 to 31;
             // Answer Y or N for each set. Each yes contributes 1, 2, 4, 8, or 16.
             System.out.println("Think of your birthday's day of the month (1-31).");
             int day = 0;
             boolean validAnswers = true;
-
             System.out.println("\nSet 1:\n 1  3  5  7\n 9 11 13 15\n17 19 21 23\n25 27 29 31");
             System.out.print("Is your day in Set 1? Enter Y for yes or N for no: ");
             String answer1 = input.nextLine().trim();
@@ -268,7 +249,6 @@ public class HelloJava_Ch4 {
             } else if (!answer3.equalsIgnoreCase("N")) {
                 validAnswers = false;
             }
-
             System.out.println("\nSet 4:\n 8  9 10 11\n12 13 14 15\n24 25 26 27\n28 29 30 31");
             System.out.print("Is your day in Set 4? Enter Y for yes or N for no: ");
             String answer4 = input.nextLine().trim();
@@ -277,7 +257,6 @@ public class HelloJava_Ch4 {
             } else if (!answer4.equalsIgnoreCase("N")) {
                 validAnswers = false;
             }
-
             System.out.println("\nSet 5:\n16 17 18 19\n20 21 22 23\n24 25 26 27\n28 29 30 31");
             System.out.print("Is your day in Set 5? Enter Y for yes or N for no: ");
             String answer5 = input.nextLine().trim();
@@ -286,7 +265,6 @@ public class HelloJava_Ch4 {
             } else if (!answer5.equalsIgnoreCase("N")) {
                 validAnswers = false;
             }
-
             if (!validAnswers) {
                 System.out.println("Invalid answer: each response must be Y or N.");
             } else if (day == 0) {
@@ -301,7 +279,6 @@ public class HelloJava_Ch4 {
             System.out.println("\nExercise 4.11");
             System.out.print("Enter exactly four binary digits (example: 0111): ");
             String binary = input.nextLine().trim();
-            // Length must be checked before charAt accesses positions 0 through 3.
             boolean valid = binary.length() == 4;
             if (valid) {
                 valid = (binary.charAt(0) == '0' || binary.charAt(0) == '1')
@@ -312,7 +289,6 @@ public class HelloJava_Ch4 {
             if (!valid) {
                 System.out.println("Invalid binary input: use exactly four 0/1 digits.");
             } else {
-                // Subtracting '0' converts a digit character to its numeric value.
                 int decimal = (binary.charAt(0) - '0') * 8 + (binary.charAt(1) - '0') * 4
                         + (binary.charAt(2) - '0') * 2 + (binary.charAt(3) - '0');
                 System.out.println("The decimal value is " + decimal);
@@ -337,7 +313,6 @@ public class HelloJava_Ch4 {
                 if (value == -1) {
                     System.out.println(text + " is an invalid input.");
                 } else {
-                    // The standard conversion omits unnecessary leading zeros.
                     System.out.println("The binary value is " + Integer.toBinaryString(value));
                 }
             }
@@ -448,7 +423,7 @@ public class HelloJava_Ch4 {
             String month = input.nextLine().trim();
             boolean leapYear = year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
             int days;
-            // Case matters in this exercise: jan is invalid, while Jan is valid.
+            // Case matters here: jan is invalid, while Jan is valid.
             switch (month) {
                 case "Jan":
                 case "Mar":
@@ -534,7 +509,6 @@ public class HelloJava_Ch4 {
             String isbn = input.nextLine().trim();
             boolean valid = isbn.length() == 9;
             int sum = 0;
-            // A short loop applies the same character check and weight to each digit.
             for (int i = 0; valid && i < isbn.length(); i++) {
                 char digit = isbn.charAt(i);
                 if (digit < '0' || digit > '9') {
@@ -548,7 +522,6 @@ public class HelloJava_Ch4 {
             } else {
                 int checksum = sum % 11;
                 String lastDigit = checksum == 10 ? "X" : "" + checksum;
-                // Reading a String preserves leading zeros without extra formatting.
                 System.out.println("The ISBN-10 number is " + isbn + lastDigit);
             }
         }
@@ -558,13 +531,10 @@ public class HelloJava_Ch4 {
             System.out.println("\nExercise 4.20");
             System.out.print("Enter a string (spaces are allowed): ");
             String text = input.nextLine();
-            // String.length() counts UTF-16 code units, including spaces.
             System.out.println("Length (Java String.length()): " + text.length());
             if (text.isEmpty()) {
                 System.out.println("The empty string has no last character.");
             } else {
-                // This also preserves a final supplementary Unicode character, such as an
-                // emoji.
                 int lastIndex = text.offsetByCodePoints(text.length(), -1);
                 String lastCharacter = text.substring(lastIndex);
                 System.out.println("Last character: " + lastCharacter);
@@ -596,7 +566,6 @@ public class HelloJava_Ch4 {
             String first = input.nextLine();
             System.out.print("Enter string s2: ");
             String second = input.nextLine();
-            // contains is case-sensitive. The empty string is a substring of every string.
             if (first.contains(second)) {
                 System.out.println("\"" + second + "\" is a substring of \"" + first + "\".");
             } else {
@@ -609,8 +578,6 @@ public class HelloJava_Ch4 {
             System.out.println("\nExercise 4.23");
             System.out.print("Enter the employee's name (spaces are allowed): ");
             String name = input.nextLine().trim();
-            // Optional extension beyond Chapter 4: BigDecimal keeps decimal money exact.
-            // Read the original text directly, rather than constructing it from a double.
             System.out.print("Enter hours worked in the week (example: 10): ");
             BigDecimal hours = new BigDecimal(input.nextLine().trim());
             System.out.print("Enter hourly pay rate (example: 9.75): ");
@@ -716,7 +683,7 @@ public class HelloJava_Ch4 {
             if (!valid) {
                 System.out.println("Invalid amount: use 1-15 dollar digits, a dot, and exactly 2 cent digits.");
             } else {
-                // No floating-point conversion: parse the two parts as integers.
+                // No floating-point conversion - parse the two parts as integers.
                 long dollarPart = Long.parseLong(dollarsText);
                 int centPart = Integer.parseInt(centsText);
                 long remaining = dollarPart * 100 + centPart;

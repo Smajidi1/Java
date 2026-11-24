@@ -398,7 +398,7 @@ public class HelloJava_Ch3 {
         // Exercise 3.13: Compute taxes for all four filing statuses
         {
             System.out.println("\nExercise 3.13");
-            // Historical exercise: use Table 3.2's 2009 rates, not current tax rates.
+            // Use Table 3.2's 2009 rates, not current tax rates.
             System.out.println("Textbook tax calculation using the 2009 table.");
             System.out.println("0 = single; 1 = married jointly / qualifying widow(er);");
             System.out.println("2 = married separately; 3 = head of household");
@@ -618,7 +618,7 @@ public class HelloJava_Ch3 {
             if (year < 1 || year > 9999 || month < 1 || month > 12 || day < 1 || day > daysInMonth) {
                 System.out.println("Invalid date.");
             } else {
-                // January and February belong to the previous year in this formula.
+                // January and February belong to the previous year
                 if (month == 1 || month == 2) {
                     month += 12;
                     year--;
@@ -670,8 +670,6 @@ public class HelloJava_Ch3 {
         {
             System.out.println("\nExercise 3.23");
             // Follow the stated center (1, 1), width 10, height 5.
-            // The screenshot's hint/figure instead uses (0, 0); that is inconsistent.
-            // Measure distance from (1, 1). The boundary counts as inside.
             System.out.print("Enter a point's x and y coordinates: ");
             double x = input.nextDouble();
             double y = input.nextDouble();
@@ -769,7 +767,6 @@ public class HelloJava_Ch3 {
                     + (divisibleBy4 && divisibleBy5));
             System.out.println("Is " + number + " divisible by 4 or 5? "
                     + (divisibleBy4 || divisibleBy5));
-            // Boolean ^ is true only when exactly one operand is true.
             System.out.println("Is " + number + " divisible by 4 or 5 but not both? "
                     + (divisibleBy4 ^ divisibleBy5));
         }
@@ -848,8 +845,6 @@ public class HelloJava_Ch3 {
         // Exercise 3.30: Display current time using a 12-hour clock
         {
             System.out.println("\nExercise 3.30");
-            // An offset is a fixed difference from GMT, not a daylight-saving rule.
-            // Decimal offsets such as 5.5 are supported.
             System.out.print("Enter the time zone offset to GMT in hours: ");
             double offset = input.nextDouble();
             if (offset < -12 || offset > 14) {
@@ -857,7 +852,6 @@ public class HelloJava_Ch3 {
             } else {
                 long totalSeconds = System.currentTimeMillis() / 1000;
                 long offsetSeconds = Math.round(offset * 3600);
-                // floorMod keeps the time nonnegative for negative offsets as well.
                 long localSeconds = Math.floorMod(totalSeconds + offsetSeconds, 86400L);
                 int hour24 = (int) (localSeconds / 3600);
                 int minute = (int) (localSeconds / 60 % 60);
@@ -960,7 +954,7 @@ public class HelloJava_Ch3 {
             double cross = (x1 - x0) * (y2 - y0) - (x2 - x0) * (y1 - y0);
             double scale = Math.abs((x1 - x0) * (y2 - y0))
                     + Math.abs((x2 - x0) * (y1 - y0));
-            // Collinear is not enough: p2 must also be between the endpoints.
+            // Collinear is not enough - p2 must also be between the endpoints.
             boolean onLine = Math.abs(cross) <= 1e-12 * scale;
             boolean withinBounds = x2 >= Math.min(x0, x1) && x2 <= Math.max(x0, x1)
                     && y2 >= Math.min(y0, y1) && y2 <= Math.max(y0, y1);
